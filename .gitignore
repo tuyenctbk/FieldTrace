@@ -1,0 +1,64 @@
+# Gradle & Build Output
+.gradle/
+.gradle_home/
+build/
+**/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+**/.externalNativeBuild/
+**/.cxx/
+
+# Android & Java Build Artifacts
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+*.so
+*.dylib
+*.dll
+
+# IDEs & Editors
+.idea/
+*.iml
+.vscode/
+.fleet/
+.navigation/
+.settings/
+.classpath
+.project
+
+# Android Studio Diagnostics
+*.hprof
+
+# Local Configurations, Secrets & Keystores
+local.properties
+secrets.properties
+.env
+.env.local
+.env.*.local
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+
+# Local Build Scripts & Temp Logs
+build_*.sh
+*.log
+tmp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

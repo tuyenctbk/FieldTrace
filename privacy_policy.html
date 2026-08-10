@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - FieldTrace</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #e2e8f0;
+            background-color: #0f172a;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1, h2, h3 {
+            color: #38bdf8;
+        }
+        h1 {
+            border-bottom: 2px solid #1e293b;
+            padding-bottom: 10px;
+        }
+        a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background-color: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .date {
+            color: #94a3b8;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.85em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy for FieldTrace</h1>
+        <p class="date">Effective Date: July 31, 2026 | Last Updated: July 31, 2026</p>
+
+        <p>FieldTrace ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy describes how FieldTrace collects, uses, and discloses information when you use our mobile application (the "App").</p>
+
+        <h2>1. Information We Collect and Process</h2>
+        <p>FieldTrace is designed to operate primarily on-device using your smartphone's built-in sensors. We collect and process the following types of data:</p>
+
+        <h3>A. Sensor & Technical Data</h3>
+        <ul>
+            <li><strong>Magnetometer Data:</strong> Raw 3-axis magnetic field values (&mu;T) measured in Microteslas to compute real-time magnetic flux and render 2D spatial heatmaps.</li>
+            <li><strong>Location Data (GPS):</strong> Precise and coarse geographic coordinates (latitude and longitude) are accessed <em>only when you record a spatial trace session</em> to tag coordinate nodes on your local heatmaps. Location data is processed strictly on your device and stored in your local Room database.</li>
+            <li><strong>Device Hardware Information:</strong> Device model, operating system version, and sensor hardware capabilities to calibrate magnetometer sample rates.</li>
+        </ul>
+
+        <h3>B. Analytical & Diagnostic Data (Non-PII)</h3>
+        <ul>
+            <li><strong>Crash Reports & Performance Metrics:</strong> We utilize Firebase Crashlytics and Firebase Analytics to collect anonymous diagnostic logs, crash trace stacks, and aggregate usage statistics. This information contains <strong>no personally identifiable information (PII)</strong> and is strictly used to resolve technical bugs and improve application performance.</li>
+        </ul>
+
+        <h2>2. How We Use Your Information</h2>
+        <ul>
+            <li>To provide real-time electromagnetic field (EMF) scanning, audio sonification synthesis, and 2D spatial heatmap rendering.</li>
+            <li>To allow you to record, inspect, and export spatial trace logs locally in CSV, JSON, and GPX formats.</li>
+            <li>To perform 3D magnetometer figure-eight baseline calibration.</li>
+            <li>To diagnose app crashes, technical bugs, and optimize app responsiveness.</li>
+        </ul>
+
+        <h2>3. Data Storage & Security</h2>
+        <ul>
+            <li><strong>100% Local Storage:</strong> All recorded spatial field traces, diagnostic notes, and custom session logs are stored locally on your device in an encrypted Room SQLite database.</li>
+            <li><strong>No Cloud Uploads of Personal Records:</strong> Your recorded heatmaps, trace points, and custom notes are <strong>never uploaded to external servers</strong> or sold to third parties.</li>
+            <li><strong>User Data Erasure:</strong> You retain full ownership and control of your data. You can delete individual trace recordings or clear your entire history at any time using the "Purge" button inside the Spatial Archive Vault tab.</li>
+        </ul>
+
+        <h2>4. Permissions Requested</h2>
+        <ul>
+            <li><code>ACCESS_FINE_LOCATION</code> / <code>ACCESS_COARSE_LOCATION</code>: Required to attach GPS latitude and longitude coordinates to spatial heatmaps during active scan sessions.</li>
+            <li><code>VIBRATE</code>: Required to trigger tactile haptic alerts when magnetic flux exceeds safety thresholds.</li>
+        </ul>
+
+        <h2>5. Children's Privacy</h2>
+        <p>FieldTrace does not knowingly collect or solicit personal information from children under the age of 13. The application does not require user account registration, login credentials, or personal identity submission.</p>
+
+        <h2>6. Third-Party Services</h2>
+        <p>The App integrates the following trusted third-party services:</p>
+        <ul>
+            <li><strong>Google Play Services:</strong> Used for location services and app licensing.</li>
+            <li><strong>Firebase Analytics & Crashlytics:</strong> Used for anonymized crash reporting and usage telemetry.</li>
+        </ul>
+
+        <h2>7. Contact Us</h2>
+        <p>If you have any questions or suggestions regarding this Privacy Policy, please contact us at:</p>
+        <ul>
+            <li><strong>Email:</strong> support@soloprono.com / tuyenctbk@gmail.com</li>
+            <li><strong>Application Name:</strong> FieldTrace</li>
+            <li><strong>Package Name:</strong> <code>com.soloprono.fieldtrace</code></li>
+        </ul>
+
+        <div class="footer">
+            &copy; 2026 FieldTrace. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

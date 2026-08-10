@@ -1,0 +1,6 @@
+{
+  "name": "FieldTrace",
+  "description": "Precision EMF & Magnetic Field Scanner with real-time visualization, sound sonification, diagnostic wire detection, and GPX spatial mapping tracker.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="120dp"
+    android:viewportWidth="360"
+    android:viewportHeight="120">
+    <!-- Grid Base Lines -->
+    <path
+        android:strokeColor="#1A00E5FF"
+        android:strokeWidth="1"
+        android:pathData="M 0,20 L 360,20 M 0,40 L 360,40 M 0,60 L 360,60 M 0,80 L 360,80 M 0,100 L 360,100" />
+    <path
+        android:strokeColor="#1A00E5FF"
+        android:strokeWidth="1"
+        android:pathData="M 40,0 L 40,120 M 80,0 L 80,120 M 120,0 L 120,120 M 160,0 L 160,120 M 200,0 L 200,120 M 240,0 L 240,120 M 280,0 L 280,120 M 320,0 L 320,120" />
+    <!-- Dynamic Wave Pattern (EMF Signal Vector) -->
+    <path
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"
+        android:pathData="M 0,60 Q 40,20 80,60 T 160,60 T 240,60 T 320,60 L 360,60" />
+    <path
+        android:strokeColor="#00FF66"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:pathData="M 0,60 Q 40,90 80,60 T 160,60 T 240,60 T 320,60 L 360,60" />
+    <!-- Center Target reticle -->
+    <path
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"
+        android:pathData="M 180,30 A 30,30 0 1,1 180,90 A 30,30 0 1,1 180,30" />
+    <path
+        android:fillColor="#00E5FF"
+        android:pathData="M 178,58 L 182,58 L 182,62 L 178,62 Z" />
+</vector>
