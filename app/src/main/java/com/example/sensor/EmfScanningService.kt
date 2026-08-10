@@ -34,10 +34,6 @@ class EmfScanningService : Service(), SensorEventListener {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        createNotificationChannel()
-        val notification = createNotification()
-        startForeground(NOTIFICATION_ID, notification)
-
         // Reset peak on start
         maxEmf = 0f
         saveScanState(true, 0f)

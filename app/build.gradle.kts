@@ -10,6 +10,13 @@ plugins {
   alias(libs.plugins.google.services)
 }
 
+val localProperties = Properties().apply {
+  val localPropertiesFile = rootProject.file("local.properties")
+  if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { load(it) }
+  }
+}
+
 android {
   namespace = "com.example"
   compileSdk { version = release(36) { minorApiLevel = 1 } }
@@ -31,10 +38,18 @@ android {
       keyAlias = "androiddebugkey"
       keyPassword = "android"
     }
+    create("release") {
+      val storeFileName = localProperties.getProperty("RELEASE_STORE_FILE") ?: "common_release_key.jks"
+      storeFile = rootProject.file(storeFileName)
+      storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD") ?: "dpadhero123"
+      keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS") ?: "dpad_hero_alias"
+      keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD") ?: "dpadhero123"
+    }
   }
 
   buildTypes {
     release {
+      signingConfig = signingConfigs.getByName("release")
       isCrunchPngs = false
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")

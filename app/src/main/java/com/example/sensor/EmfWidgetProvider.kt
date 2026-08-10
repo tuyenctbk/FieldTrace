@@ -31,7 +31,7 @@ class EmfWidgetProvider : AppWidgetProvider() {
                 context.stopService(serviceIntent)
                 prefs.edit().putBoolean("is_widget_scanning", false).apply()
             } else {
-                ContextCompat.startForegroundService(context, serviceIntent)
+                context.startService(serviceIntent)
                 prefs.edit().putBoolean("is_widget_scanning", true).apply()
             }
 
