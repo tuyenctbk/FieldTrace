@@ -10,6 +10,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -69,6 +70,9 @@ import kotlin.math.min
 @Composable
 fun RealtimeLineChart(
     history: List<Float>,
+    historyX: List<Float> = emptyList(),
+    historyY: List<Float> = emptyList(),
+    historyZ: List<Float> = emptyList(),
     warningThreshold: Float = 80f,
     emfUnit: com.example.data.EmfUnit = com.example.data.EmfUnit.MICROTESLA,
     modifier: Modifier = Modifier,
@@ -81,6 +85,7 @@ fun RealtimeLineChart(
 ) {
     var touchX by remember { mutableStateOf<Float?>(null) }
     var selectedIndex by remember { mutableStateOf<Int?>(null) }
+    var show3AxisBreakdown by remember { mutableStateOf(false) }
 
     val infiniteTransition = rememberInfiniteTransition(label = "LivePulse")
     val pulseRadius by infiniteTransition.animateFloat(
@@ -141,7 +146,7 @@ fun RealtimeLineChart(
                         letterSpacing = 1.sp
                     )
                     Text(
-                        text = "MAGNETIC INTENSITY WAVE (${emfUnit.symbol})",
+                        text = if (show3AxisBreakdown) androidx.compose.ui.res.stringResource(com.example.R.string.axis_vector_wave) else "MAGNETIC INTENSITY WAVE (${emfUnit.symbol})",
                         fontSize = 9.sp,
                         color = TextMuted,
                         letterSpacing = 0.5.sp
@@ -149,11 +154,28 @@ fun RealtimeLineChart(
                 }
             }
 
-            // High/Avg/Low Badge
             Row(
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                if (historyX.isNotEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(if (show3AxisBreakdown) GlowCyan.copy(alpha = 0.25f) else Color(0xFF1E293B))
+                            .border(0.5.dp, if (show3AxisBreakdown) GlowCyan else Color.Transparent, RoundedCornerShape(6.dp))
+                            .clickable { show3AxisBreakdown = !show3AxisBreakdown }
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                            .testTag("chart_3axis_toggle_button")
+                    ) {
+                        Text(
+                            text = if (show3AxisBreakdown) androidx.compose.ui.res.stringResource(com.example.R.string.axis_3_on) else androidx.compose.ui.res.stringResource(com.example.R.string.axis_3_off),
+                            fontSize = 8.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (show3AxisBreakdown) GlowCyan else TextMuted
+                        )
+                    }
+                }
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
                         text = "PEAK",

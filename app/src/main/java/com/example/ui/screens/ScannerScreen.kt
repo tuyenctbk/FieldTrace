@@ -104,6 +104,9 @@ fun ScannerScreen(
     val emfMag by viewModel.emfMagnitude.collectAsState()
     val accuracy by viewModel.sensorAccuracy.collectAsState()
     val history by viewModel.history.collectAsState()
+    val historyX by viewModel.historyX.collectAsState()
+    val historyY by viewModel.historyY.collectAsState()
+    val historyZ by viewModel.historyZ.collectAsState()
     val isMuted by viewModel.isMuted.collectAsState()
     val isSonificationActive by viewModel.isSonificationActive.collectAsState()
     val audioFreq by viewModel.currentAudioFrequency.collectAsState()
@@ -112,6 +115,7 @@ fun ScannerScreen(
 
     var showCalibrationDialog by remember { mutableStateOf(false) }
     var showVibrationCustomizer by remember { mutableStateOf(false) }
+    var selectedVisualizerMode by remember { mutableStateOf(0) }
 
     // Dynamic warning coloring
     val accentColor = when {
@@ -353,6 +357,45 @@ fun ScannerScreen(
             }
         }
 
+        // Visualizer Mode Selector Pill Row
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Color(0xFF0F172A))
+                    .border(0.5.dp, Color(0xFF1E293B), RoundedCornerShape(10.dp))
+                    .padding(3.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(if (selectedVisualizerMode == 0) GlowCyan.copy(alpha = 0.25f) else Color.Transparent)
+                        .border(0.5.dp, if (selectedVisualizerMode == 0) GlowCyan else Color.Transparent, RoundedCornerShape(8.dp))
+                        .clickable { selectedVisualizerMode = 0 }
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                        .testTag("visualizer_mode_radar")
+                ) {
+                    Text("🎯 " + androidx.compose.ui.res.stringResource(com.example.R.string.radar_sweep), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = if (selectedVisualizerMode == 0) GlowCyan else TextMuted)
+                }
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(if (selectedVisualizerMode == 1) GlowAmber.copy(alpha = 0.25f) else Color.Transparent)
+                        .border(0.5.dp, if (selectedVisualizerMode == 1) GlowAmber else Color.Transparent, RoundedCornerShape(8.dp))
+                        .clickable { selectedVisualizerMode = 1 }
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                        .testTag("visualizer_mode_heatmap")
+                ) {
+                    Text("🔥 " + androidx.compose.ui.res.stringResource(com.example.R.string.heatmap_canvas), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = if (selectedVisualizerMode == 1) GlowAmber else TextMuted)
+                }
+            }
+        }
+
         // Central visualizer & metrics
         Box(
             modifier = Modifier
@@ -381,25 +424,35 @@ fun ScannerScreen(
                 )
             }
 
-            // Concentric design lines
-            Box(
-                modifier = Modifier
-                    .size(280.dp)
-                    .border(0.7.dp, GlowCyan.copy(alpha = 0.12f), CircleShape)
-            )
-            Box(
-                modifier = Modifier
-                    .size(210.dp)
-                    .border(0.7.dp, GlowCyan.copy(alpha = 0.25f), CircleShape)
-            )
-            Box(
-                modifier = Modifier
-                    .size(140.dp)
-                    .border(0.7.dp, GlowCyan.copy(alpha = 0.45f), CircleShape)
-            )
+            if (selectedVisualizerMode == 1) {
+                com.example.ui.components.RealtimeEmfHeatmapOverlay(
+                    emfMag = emfMag,
+                    threshold = threshold,
+                    modifier = Modifier.fillMaxSize(),
+                    showControlsHeader = false,
+                    alphaMultiplier = 0.7f
+                )
+            } else {
+                // Concentric design lines
+                Box(
+                    modifier = Modifier
+                        .size(280.dp)
+                        .border(0.7.dp, GlowCyan.copy(alpha = 0.12f), CircleShape)
+                )
+                Box(
+                    modifier = Modifier
+                        .size(210.dp)
+                        .border(0.7.dp, GlowCyan.copy(alpha = 0.25f), CircleShape)
+                )
+                Box(
+                    modifier = Modifier
+                        .size(140.dp)
+                        .border(0.7.dp, GlowCyan.copy(alpha = 0.45f), CircleShape)
+                )
 
-            // Scanning radar graphic
-            RadarSweepCanvas(emfMag = emfMag, maxThreshold = threshold, accentColor = accentColor)
+                // Scanning radar graphic
+                RadarSweepCanvas(emfMag = emfMag, maxThreshold = threshold, accentColor = accentColor)
+            }
 
             // Primary Metric display
             val convertedEmf = emfUnit.convert(emfMag)
@@ -843,6 +896,49 @@ fun ScannerScreen(
                             color = GlowCyan
                         )
                     }
+
+                    // Background Service Sonification Toggle Row
+                    val isBgServiceRunning by viewModel.isBackgroundServiceRunning.collectAsState()
+                    val context = androidx.compose.ui.platform.LocalContext.current
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(if (isBgServiceRunning) GlowCyan.copy(alpha = 0.15f) else Color(0xFF08111D))
+                            .border(0.5.dp, if (isBgServiceRunning) GlowCyan else Color.Transparent, RoundedCornerShape(8.dp))
+                            .clickable { viewModel.toggleBackgroundAudioService(context) }
+                            .padding(horizontal = 10.dp, vertical = 8.dp)
+                            .testTag("toggle_background_audio_service"),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.GraphicEq,
+                                contentDescription = null,
+                                tint = if (isBgServiceRunning) GlowCyan else TextMuted,
+                                modifier = Modifier.size(14.dp)
+                            )
+                            Text(
+                                text = androidx.compose.ui.res.stringResource(com.example.R.string.bg_service_hear_emf),
+                                fontSize = 9.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (isBgServiceRunning) GlowCyan else TextWhite,
+                                letterSpacing = 0.5.sp
+                            )
+                        }
+                        Text(
+                            text = if (isBgServiceRunning) androidx.compose.ui.res.stringResource(com.example.R.string.bg_service_running) else androidx.compose.ui.res.stringResource(com.example.R.string.bg_service_start),
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Black,
+                            fontFamily = FontFamily.Monospace,
+                            color = if (isBgServiceRunning) GlowCyan else TextMuted
+                        )
+                    }
                 }
             }
         }
@@ -850,6 +946,9 @@ fun ScannerScreen(
         // Real-time Line Chart Component (Magnetic Field Intensity Fluctuations)
         RealtimeLineChart(
             history = history,
+            historyX = historyX,
+            historyY = historyY,
+            historyZ = historyZ,
             warningThreshold = threshold,
             emfUnit = emfUnit,
             accentColor = accentColor,

@@ -4,23 +4,34 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Outer glow faint -->
+    <!-- Outer Magnetic Field Radar Ring -->
     <path
-        android:strokeColor="#4D00E5FF"
-        android:strokeWidth="2.2"
+        android:strokeColor="#3300E5FF"
+        android:strokeWidth="3.5"
         android:fillColor="#00000000"
-        android:pathData="M 54,18 A 36,36 0 1,1 54,90 A 36,36 0 1,1 54,18"/>
+        android:pathData="M 54,16 A 38,38 0 1,1 54,92 A 38,38 0 1,1 54,16"/>
+    <!-- Middle Wave Ring -->
     <path
         android:strokeColor="#8800E5FF"
-        android:strokeWidth="1.8"
+        android:strokeWidth="2.8"
         android:fillColor="#00000000"
-        android:pathData="M 54,30 A 24,24 0 1,1 54,78 A 24,24 0 1,1 54,30"/>
+        android:pathData="M 54,28 A 26,26 0 1,1 54,80 A 26,26 0 1,1 54,28"/>
+    <!-- Inner Core Ring -->
     <path
         android:strokeColor="#FF00E5FF"
-        android:strokeWidth="2.2"
+        android:strokeWidth="2.5"
         android:fillColor="#00000000"
-        android:pathData="M 54,42 A 12,12 0 1,1 54,66 A 12,12 0 1,1 54,42"/>
+        android:pathData="M 54,40 A 14,14 0 1,1 54,68 A 14,14 0 1,1 54,40"/>
+    <!-- Glowing Crosshair Axes -->
+    <path
+        android:strokeColor="#6600E5FF"
+        android:strokeWidth="1.5"
+        android:pathData="M 54,20 L 54,88 M 20,54 L 88,54"/>
+    <!-- Center Pulse Sensor Needle -->
+    <path
+        android:fillColor="#FFFF3D00"
+        android:pathData="M 54,36 L 61,54 L 54,50 L 47,54 Z"/>
     <path
         android:fillColor="#FF00E5FF"
-        android:pathData="M 54,40 L 64,54 L 58.5,54 L 58.5,68 L 49.5,68 L 49.5,54 L 44,54 Z"/>
+        android:pathData="M 54,72 L 61,54 L 54,58 L 47,54 Z"/>
 </vector>

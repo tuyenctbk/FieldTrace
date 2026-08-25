@@ -80,4 +80,16 @@
     <string name="update_available_desc">Tap to view latest features &amp; performance updates.</string>
     <string name="vault_subtitle">SAVED MAPS</string>
     <string name="vault_title">SPATIAL ARCHIVE VAULT</string>
+    <string name="canvas_heatmap_overlay">CANVAS HEATMAP OVERLAY</string>
+    <string name="axis_vector_wave">3-AXIS VECTOR WAVE (X/Y/Z)</string>
+    <string name="axis_3_on">3-AXIS ON</string>
+    <string name="axis_3_off">3-AXIS</string>
+    <string name="radar_sweep">RADAR SWEEP</string>
+    <string name="heatmap_canvas">CANVAS HEATMAP</string>
+    <string name="bg_service_hear_emf">BACKGROUND SERVICE (HEAR EMF IN BG)</string>
+    <string name="bg_service_running">RUNNING ▶</string>
+    <string name="bg_service_start">START ⚡</string>
+    <string name="trace_grid">TRACE GRID</string>
+    <string name="spatial_heatmap_tab">SPATIAL HEATMAP</string>
+    <string name="cam_hud">CAM HUD</string>
 </resources>

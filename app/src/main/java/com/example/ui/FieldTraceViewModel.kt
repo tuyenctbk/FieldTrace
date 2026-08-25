@@ -84,6 +84,16 @@ class FieldTraceViewModel(application: Application) : AndroidViewModel(applicati
     // Oscilloscope history
     private val _history = MutableStateFlow<List<Float>>(emptyList())
     val history: StateFlow<List<Float>> = _history.asStateFlow()
+
+    private val _historyX = MutableStateFlow<List<Float>>(emptyList())
+    val historyX: StateFlow<List<Float>> = _historyX.asStateFlow()
+
+    private val _historyY = MutableStateFlow<List<Float>>(emptyList())
+    val historyY: StateFlow<List<Float>> = _historyY.asStateFlow()
+
+    private val _historyZ = MutableStateFlow<List<Float>>(emptyList())
+    val historyZ: StateFlow<List<Float>> = _historyZ.asStateFlow()
+
     private val maxHistorySize = 60
 
     // Sonification configuration
@@ -204,6 +214,26 @@ class FieldTraceViewModel(application: Application) : AndroidViewModel(applicati
 
     fun resetCalibration() {
         sensorService.resetCalibration()
+    }
+
+    private val _isBackgroundServiceRunning = MutableStateFlow(false)
+    val isBackgroundServiceRunning: StateFlow<Boolean> = _isBackgroundServiceRunning.asStateFlow()
+
+    fun toggleBackgroundAudioService(context: Context) {
+        val intent = android.content.Intent(context, com.example.sensor.EmfScanningService::class.java).apply {
+            putExtra(com.example.sensor.EmfScanningService.EXTRA_ENABLE_AUDIO, true)
+        }
+        if (_isBackgroundServiceRunning.value) {
+            context.stopService(intent)
+            _isBackgroundServiceRunning.value = false
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent)
+            } else {
+                context.startService(intent)
+            }
+            _isBackgroundServiceRunning.value = true
+        }
     }
 
     fun setSonificationEnabled(enabled: Boolean) {
@@ -371,6 +401,21 @@ class FieldTraceViewModel(application: Application) : AndroidViewModel(applicati
             currentHistory.removeAt(0)
         }
         _history.value = currentHistory
+
+        val hX = _historyX.value.toMutableList()
+        hX.add(x)
+        if (hX.size > maxHistorySize) hX.removeAt(0)
+        _historyX.value = hX
+
+        val hY = _historyY.value.toMutableList()
+        hY.add(y)
+        if (hY.size > maxHistorySize) hY.removeAt(0)
+        _historyY.value = hY
+
+        val hZ = _historyZ.value.toMutableList()
+        hZ.add(z)
+        if (hZ.size > maxHistorySize) hZ.removeAt(0)
+        _historyZ.value = hZ
 
         // Update dynamic sonification sound with threshold alert support
         audioPlayer.updateSound(magnitude, _isMuted.value, _warningThreshold.value)

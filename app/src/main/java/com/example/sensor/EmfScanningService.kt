@@ -18,7 +18,6 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.example.MainActivity
 import com.example.R
-import kotlin.math.max
 import kotlin.math.sqrt
 
 class EmfScanningService : Service(), SensorEventListener {
@@ -26,20 +25,35 @@ class EmfScanningService : Service(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private var magnetometer: Sensor? = null
     private var maxEmf = 0f
+    private val audioPlayer = EmfAudioPlayer()
+    private var isAudioEnabled = true
 
     override fun onCreate() {
         super.onCreate()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+        createNotificationChannel()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // Reset peak on start
+        val notification = createNotification()
+        try {
+            startForeground(NOTIFICATION_ID, notification)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
         maxEmf = 0f
+        isAudioEnabled = intent?.getBooleanExtra(EXTRA_ENABLE_AUDIO, true) ?: true
         saveScanState(true, 0f)
 
+        if (isAudioEnabled) {
+            audioPlayer.setSonificationEnabled(true)
+            audioPlayer.start()
+        }
+
         magnetometer?.let {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME)
         }
 
         updateAllWidgets()
@@ -50,6 +64,7 @@ class EmfScanningService : Service(), SensorEventListener {
 
     override fun onDestroy() {
         sensorManager.unregisterListener(this)
+        audioPlayer.stop()
         saveScanState(false, maxEmf)
         updateAllWidgets()
         super.onDestroy()
@@ -67,6 +82,11 @@ class EmfScanningService : Service(), SensorEventListener {
             maxEmf = magnitude
             saveScanState(true, maxEmf)
             updateAllWidgets()
+        }
+
+        // Map real-time magnetic field sensor intensity to audio frequency in background
+        if (isAudioEnabled) {
+            audioPlayer.updateSound(magnitude, isMuted = false, warningThreshold = 80f)
         }
     }
 
@@ -95,10 +115,10 @@ class EmfScanningService : Service(), SensorEventListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "EMF Scanning Service",
+                "EMF Background Audio & Scanning Service",
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
-                description = "Running active magnetometer tracking from the home screen."
+                description = "Maps real-time EMF sensor intensity to audio frequency in background."
             }
             val manager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(channel)
@@ -114,15 +134,16 @@ class EmfScanningService : Service(), SensorEventListener {
         )
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("EMF Background Scanner Active")
-            .setContentText("Surveying magnetic field environment...")
-            .setSmallIcon(android.R.drawable.ic_menu_compass)
+            .setContentTitle("EMF Audio Sonification Active")
+            .setContentText("Listening to magnetic field intensity fluctuations...")
+            .setSmallIcon(android.R.drawable.ic_media_play)
             .setContentIntent(pendingIntent)
             .setOngoing(true)
             .build()
     }
 
     companion object {
+        const val EXTRA_ENABLE_AUDIO = "extra_enable_audio"
         private const val CHANNEL_ID = "emf_background_scanning_channel"
         private const val NOTIFICATION_ID = 2026
     }

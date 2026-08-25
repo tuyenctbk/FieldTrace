@@ -106,6 +106,7 @@ fun TracerScreen(
 
     var isCameraHudActive by remember { mutableStateOf(false) }
     var isAutoCaptureEnabled by remember { mutableStateOf(true) }
+    var mapperViewMode by remember { mutableStateOf(0) } // 0: Grid, 1: Spatial Heatmap, 2: Camera HUD
     val activeUnit by viewModel.emfUnit.collectAsState()
 
     Column(
@@ -294,17 +295,78 @@ fun TracerScreen(
             }
         }
 
+        // Mapper Canvas View Mode Selector Pill Bar
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Color(0xFF0F172A))
+                    .border(0.5.dp, Color(0xFF1E293B), RoundedCornerShape(10.dp))
+                    .padding(3.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(if (mapperViewMode == 0) GlowCyan.copy(alpha = 0.25f) else Color.Transparent)
+                        .border(0.5.dp, if (mapperViewMode == 0) GlowCyan else Color.Transparent, RoundedCornerShape(8.dp))
+                        .clickable {
+                            mapperViewMode = 0
+                            isCameraHudActive = false
+                        }
+                        .padding(horizontal = 10.dp, vertical = 5.dp)
+                        .testTag("tracer_mode_grid")
+                ) {
+                    Text("📍 " + androidx.compose.ui.res.stringResource(com.example.R.string.trace_grid), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = if (mapperViewMode == 0) GlowCyan else TextMuted)
+                }
+
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(if (mapperViewMode == 1) GlowAmber.copy(alpha = 0.25f) else Color.Transparent)
+                        .border(0.5.dp, if (mapperViewMode == 1) GlowAmber else Color.Transparent, RoundedCornerShape(8.dp))
+                        .clickable {
+                            mapperViewMode = 1
+                            isCameraHudActive = false
+                        }
+                        .padding(horizontal = 10.dp, vertical = 5.dp)
+                        .testTag("tracer_mode_heatmap")
+                ) {
+                    Text("🔥 " + androidx.compose.ui.res.stringResource(com.example.R.string.spatial_heatmap_tab), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = if (mapperViewMode == 1) GlowAmber else TextMuted)
+                }
+
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(if (mapperViewMode == 2 || isCameraHudActive) GlowRed.copy(alpha = 0.25f) else Color.Transparent)
+                        .border(0.5.dp, if (mapperViewMode == 2 || isCameraHudActive) GlowRed else Color.Transparent, RoundedCornerShape(8.dp))
+                        .clickable {
+                            mapperViewMode = 2
+                            isCameraHudActive = true
+                        }
+                        .padding(horizontal = 10.dp, vertical = 5.dp)
+                        .testTag("tracer_mode_cam")
+                ) {
+                    Text("📷 " + androidx.compose.ui.res.stringResource(com.example.R.string.cam_hud), fontSize = 9.sp, fontWeight = FontWeight.Bold, color = if (mapperViewMode == 2 || isCameraHudActive) GlowRed else TextMuted)
+                }
+            }
+        }
+
         // Vector Spatial Matrix Canvas or Camera Preview HUD
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(310.dp)
+                .height(340.dp)
                 .clip(RoundedCornerShape(16.dp))
                 .background(Color(0xFF070C15))
                 .border(0.5.dp, Color(0xFF1E293B), RoundedCornerShape(16.dp)),
             contentAlignment = Alignment.Center
         ) {
-            if (isCameraHudActive) {
+            if (mapperViewMode == 2 || isCameraHudActive) {
                 com.example.ui.components.CameraPreviewHud(
                     emfMag = emfMag,
                     emfUnit = activeUnit,
@@ -328,6 +390,13 @@ fun TracerScreen(
                             viewModel.recordPoint(pt)
                         }
                     }
+                )
+            } else if (mapperViewMode == 1) {
+                com.example.ui.components.SpatialHeatmapGrid(
+                    points = sessionPoints,
+                    threshold = threshold,
+                    emfUnit = activeUnit,
+                    modifier = Modifier.fillMaxSize()
                 )
             } else {
                 SpatialGridCanvas(

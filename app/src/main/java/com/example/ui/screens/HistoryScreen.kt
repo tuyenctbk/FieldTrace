@@ -28,7 +28,7 @@ import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.CompareArrows
+import androidx.compose.material.icons.automirrored.filled.CompareArrows
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -168,7 +168,7 @@ fun HistoryScreen(
                 border = androidx.compose.foundation.BorderStroke(1.dp, GlowCyan)
             ) {
                 Icon(
-                    imageVector = Icons.Default.CompareArrows,
+                    imageVector = Icons.AutoMirrored.Filled.CompareArrows,
                     contentDescription = null,
                     tint = GlowCyan,
                     modifier = Modifier.size(18.dp)

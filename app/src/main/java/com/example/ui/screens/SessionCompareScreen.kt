@@ -18,9 +18,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.CompareArrows
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.CompareArrows
 import androidx.compose.material.icons.filled.Timeline
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -119,7 +119,7 @@ fun SessionCompareScreen(
                 onClick = onDismiss,
                 modifier = Modifier.testTag("back_button_comparison")
             ) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Go back", tint = Color.White)
+                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Go back", tint = Color.White)
             }
             Spacer(modifier = Modifier.width(8.dp))
             Column {
@@ -256,7 +256,7 @@ fun SessionCompareScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.CompareArrows,
+                        imageVector = Icons.AutoMirrored.Filled.CompareArrows,
                         contentDescription = null,
                         tint = TextMuted,
                         modifier = Modifier.size(64.dp)
