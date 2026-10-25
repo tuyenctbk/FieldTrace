@@ -163,7 +163,7 @@ fun SplashScreen(
             Spacer(modifier = Modifier.height(32.dp))
 
             Text(
-                text = "v1.6.0 • NOAA SWPC & OpenCelliD Integrated",
+                text = "v1.7.0 • NOAA SWPC & OpenCelliD Integrated",
                 fontSize = 9.sp,
                 fontFamily = FontFamily.Monospace,
                 color = TextMuted

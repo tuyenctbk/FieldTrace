@@ -21,7 +21,7 @@ class SpaceWeatherRepository {
         try {
             val request = Request.Builder()
                 .url("https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json")
-                .header("User-Agent", "FieldTrace-EMF-Scanner/1.6.0")
+                .header("User-Agent", "FieldTrace-EMF-Scanner/1.7.0")
                 .build()
 
             client.newCall(request).execute().use { response ->

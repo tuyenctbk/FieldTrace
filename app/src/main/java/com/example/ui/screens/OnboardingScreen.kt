@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -82,14 +83,20 @@ fun OnboardingScreen(
         isPermissionGranted = granted
     }
 
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize()
-            .background(androidx.compose.material3.MaterialTheme.colorScheme.background)
-            .padding(20.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(androidx.compose.material3.MaterialTheme.colorScheme.background),
+        contentAlignment = Alignment.TopCenter
     ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .widthIn(max = 840.dp)
+                .padding(20.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
         // Top Header
         Row(
             modifier = Modifier
@@ -250,9 +257,10 @@ fun OnboardingScreen(
         }
     }
 }
+}
 
 @Composable
-private fun OnboardingPageScanner() {
+fun OnboardingPageScanner() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -333,7 +341,7 @@ private fun OnboardingPageScanner() {
 }
 
 @Composable
-private fun OnboardingPageSpatialHeatmap() {
+fun OnboardingPageSpatialHeatmap() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -418,7 +426,7 @@ private fun OnboardingPageSpatialHeatmap() {
 }
 
 @Composable
-private fun FigureEightMotionIllustration() {
+fun FigureEightMotionIllustration() {
     val infiniteTransition = rememberInfiniteTransition(label = "illustration_animation")
     val animPhase by infiniteTransition.animateFloat(
         initialValue = 0f,
@@ -486,7 +494,7 @@ private fun FigureEightMotionIllustration() {
 }
 
 @Composable
-private fun OnboardingPageCalibration() {
+fun OnboardingPageCalibration() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -531,7 +539,7 @@ private fun OnboardingPageCalibration() {
 }
 
 @Composable
-private fun OnboardingPagePermissions(
+fun OnboardingPagePermissions(
     isPermissionGranted: Boolean,
     onRequestPermissions: () -> Unit
 ) {
@@ -636,7 +644,7 @@ private fun OnboardingPagePermissions(
 }
 
 @Composable
-private fun PillBadge(text: String, color: Color) {
+fun PillBadge(text: String, color: Color) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(6.dp))

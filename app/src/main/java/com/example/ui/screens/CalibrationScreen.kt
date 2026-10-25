@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -119,15 +120,21 @@ fun CalibrationScreen(
         else -> GlowRed
     }
 
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize()
-            .background(androidx.compose.material3.MaterialTheme.colorScheme.background)
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .background(androidx.compose.material3.MaterialTheme.colorScheme.background),
+        contentAlignment = Alignment.TopCenter
     ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .widthIn(max = 840.dp)
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
         // Top Bar Navigation
         Row(
             modifier = Modifier
@@ -443,11 +450,12 @@ fun CalibrationScreen(
         }
 
         Spacer(modifier = Modifier.height(48.dp))
+        }
     }
 }
 
 @Composable
-private fun AxisSweepMeter(
+fun AxisSweepMeter(
     axisLabel: String,
     coverage: Float,
     color: Color
@@ -483,7 +491,7 @@ private fun AxisSweepMeter(
 }
 
 @Composable
-private fun InstructionItem(step: String, text: String) {
+fun InstructionItem(step: String, text: String) {
     Row(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -507,7 +515,7 @@ private fun InstructionItem(step: String, text: String) {
 }
 
 @Composable
-private fun FigureEightMotionCanvas(
+fun FigureEightMotionCanvas(
     pitch: Float,
     roll: Float,
     progress: Float,

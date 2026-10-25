@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Scaffold
@@ -146,7 +147,7 @@ fun MainContent() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            Row(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(68.dp)
@@ -161,115 +162,122 @@ fun MainContent() {
                     }
                     .windowInsetsPadding(WindowInsets.navigationBars)
                     .testTag("bottom_nav_bar"),
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
+                contentAlignment = Alignment.Center
             ) {
-                // TAB 1: SCANNER
-                val scannerActive = currentTab == FieldTraceTab.Scanner
-                Column(
+                Row(
                     modifier = Modifier
-                        .weight(1f)
-                        .clickable { currentTab = FieldTraceTab.Scanner }
-                        .testTag("nav_scanner_tab")
-                        .padding(vertical = 4.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                        .fillMaxWidth()
+                        .widthIn(max = 840.dp),
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Box(
+                    // TAB 1: SCANNER
+                    val scannerActive = currentTab == FieldTraceTab.Scanner
+                    Column(
                         modifier = Modifier
-                            .size(6.dp)
-                            .background(
-                                color = if (scannerActive) GlowCyan else Color.Transparent,
-                                shape = CircleShape
-                            )
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Icon(
-                        imageVector = Icons.Default.Sensors,
-                        contentDescription = stringResource(R.string.desc_tab_scanner),
-                        tint = if (scannerActive) GlowCyan else TextMuted.copy(alpha = 0.4f),
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(R.string.tab_live),
-                        fontSize = 9.sp,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.sp,
-                        color = if (scannerActive) GlowCyan else TextMuted.copy(alpha = 0.4f)
-                    )
-                }
+                            .weight(1f)
+                            .clickable { currentTab = FieldTraceTab.Scanner }
+                            .testTag("nav_scanner_tab")
+                            .padding(vertical = 4.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(6.dp)
+                                .background(
+                                    color = if (scannerActive) GlowCyan else Color.Transparent,
+                                    shape = CircleShape
+                                )
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Icon(
+                            imageVector = Icons.Default.Sensors,
+                            contentDescription = stringResource(R.string.desc_tab_scanner),
+                            tint = if (scannerActive) GlowCyan else TextMuted.copy(alpha = 0.4f),
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.tab_live),
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp,
+                            color = if (scannerActive) GlowCyan else TextMuted.copy(alpha = 0.4f)
+                        )
+                    }
 
-                // TAB 2: MAPPER
-                val tracerActive = currentTab == FieldTraceTab.Tracer
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .clickable { currentTab = FieldTraceTab.Tracer }
-                        .testTag("nav_tracer_tab")
-                        .padding(vertical = 4.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Box(
+                    // TAB 2: MAPPER
+                    val tracerActive = currentTab == FieldTraceTab.Tracer
+                    Column(
                         modifier = Modifier
-                            .size(6.dp)
-                            .background(
-                                color = if (tracerActive) GlowCyan else Color.Transparent,
-                                shape = CircleShape
-                            )
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Icon(
-                        imageVector = Icons.Default.LocationOn,
-                        contentDescription = stringResource(R.string.desc_tab_tracer),
-                        tint = if (tracerActive) GlowCyan else TextMuted.copy(alpha = 0.4f),
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(R.string.tab_map),
-                        fontSize = 9.sp,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.sp,
-                        color = if (tracerActive) GlowCyan else TextMuted.copy(alpha = 0.4f)
-                    )
-                }
+                            .weight(1f)
+                            .clickable { currentTab = FieldTraceTab.Tracer }
+                            .testTag("nav_tracer_tab")
+                            .padding(vertical = 4.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(6.dp)
+                                .background(
+                                    color = if (tracerActive) GlowCyan else Color.Transparent,
+                                    shape = CircleShape
+                                )
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Icon(
+                            imageVector = Icons.Default.LocationOn,
+                            contentDescription = stringResource(R.string.desc_tab_tracer),
+                            tint = if (tracerActive) GlowCyan else TextMuted.copy(alpha = 0.4f),
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.tab_map),
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp,
+                            color = if (tracerActive) GlowCyan else TextMuted.copy(alpha = 0.4f)
+                        )
+                    }
 
-                // TAB 3: ARCHIVE
-                val historyActive = currentTab == FieldTraceTab.History
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .clickable { currentTab = FieldTraceTab.History }
-                        .testTag("nav_history_tab")
-                        .padding(vertical = 4.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Box(
+                    // TAB 3: ARCHIVE
+                    val historyActive = currentTab == FieldTraceTab.History
+                    Column(
                         modifier = Modifier
-                            .size(6.dp)
-                            .background(
-                                color = if (historyActive) GlowCyan else Color.Transparent,
-                                shape = CircleShape
-                            )
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Icon(
-                        imageVector = Icons.Default.History,
-                        contentDescription = stringResource(R.string.desc_tab_history),
-                        tint = if (historyActive) GlowCyan else TextMuted.copy(alpha = 0.4f),
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(R.string.tab_vault),
-                        fontSize = 9.sp,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.sp,
-                        color = if (historyActive) GlowCyan else TextMuted.copy(alpha = 0.4f)
-                    )
+                            .weight(1f)
+                            .clickable { currentTab = FieldTraceTab.History }
+                            .testTag("nav_history_tab")
+                            .padding(vertical = 4.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(6.dp)
+                                .background(
+                                    color = if (historyActive) GlowCyan else Color.Transparent,
+                                    shape = CircleShape
+                                )
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Icon(
+                            imageVector = Icons.Default.History,
+                            contentDescription = stringResource(R.string.desc_tab_history),
+                            tint = if (historyActive) GlowCyan else TextMuted.copy(alpha = 0.4f),
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.tab_vault),
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp,
+                            color = if (historyActive) GlowCyan else TextMuted.copy(alpha = 0.4f)
+                        )
+                    }
                 }
             }
         },
