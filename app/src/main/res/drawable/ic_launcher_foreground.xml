@@ -4,34 +4,40 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Outer Magnetic Field Radar Ring -->
+    <!-- Outer Space Weather Orbital Ring -->
     <path
         android:strokeColor="#3300E5FF"
         android:strokeWidth="3.5"
         android:fillColor="#00000000"
         android:pathData="M 54,16 A 38,38 0 1,1 54,92 A 38,38 0 1,1 54,16"/>
-    <!-- Middle Wave Ring -->
+    <!-- Cellular Tower Signal Arcs -->
+    <path
+        android:strokeColor="#88FFC107"
+        android:strokeWidth="2.2"
+        android:fillColor="#00000000"
+        android:pathData="M 32,32 A 31,31 0 0,1 76,32"/>
     <path
         android:strokeColor="#8800E5FF"
-        android:strokeWidth="2.8"
+        android:strokeWidth="2.5"
         android:fillColor="#00000000"
         android:pathData="M 54,28 A 26,26 0 1,1 54,80 A 26,26 0 1,1 54,28"/>
-    <!-- Inner Core Ring -->
+    <!-- Inner Core Radar Ring -->
     <path
         android:strokeColor="#FF00E5FF"
         android:strokeWidth="2.5"
         android:fillColor="#00000000"
         android:pathData="M 54,40 A 14,14 0 1,1 54,68 A 14,14 0 1,1 54,40"/>
-    <!-- Glowing Crosshair Axes -->
+    <!-- Crosshair Target Axes -->
     <path
         android:strokeColor="#6600E5FF"
         android:strokeWidth="1.5"
         android:pathData="M 54,20 L 54,88 M 20,54 L 88,54"/>
-    <!-- Center Pulse Sensor Needle -->
+    <!-- North Red Sensor Needle -->
     <path
         android:fillColor="#FFFF3D00"
-        android:pathData="M 54,36 L 61,54 L 54,50 L 47,54 Z"/>
+        android:pathData="M 54,34 L 61,54 L 54,50 L 47,54 Z"/>
+    <!-- South Cyan Sensor Needle -->
     <path
         android:fillColor="#FF00E5FF"
-        android:pathData="M 54,72 L 61,54 L 54,58 L 47,54 Z"/>
+        android:pathData="M 54,74 L 61,54 L 54,58 L 47,54 Z"/>
 </vector>

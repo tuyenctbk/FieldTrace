@@ -92,4 +92,9 @@
     <string name="trace_grid">GRID DE RECORRIDO</string>
     <string name="spatial_heatmap_tab">MAPA DE CALOR ESPACIAL</string>
     <string name="cam_hud">CAM HUD</string>
+    <string name="app_tagline">ESCÁNER EMF • MAPEADOR ESPACIAL • CLIMA ESPACIAL</string>
+    <string name="space_weather_title">ACTIVIDAD DE TORMENTAS GEOMAGNÉTICAS PLANETARIAS</string>
+    <string name="noaa_swpc_sub">Datos del Índice Kp Planetario en Vivo de NOAA SWPC</string>
+    <string name="rf_cell_towers_title">INFRAESTRUCTURA CELULAR CERCANA DE OPENCELLID</string>
+    <string name="opencellid_sub">Radar de Correlación de Torres RF y Densidad de Señal</string>
 </resources>

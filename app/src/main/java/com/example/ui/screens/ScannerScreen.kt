@@ -955,6 +955,18 @@ fun ScannerScreen(
             chartHeight = 170.dp
         )
 
+        // Space Weather (NOAA SWPC Planetary Kp-Index) Card
+        val spaceData by viewModel.spaceWeatherData.collectAsState()
+        spaceData?.let { data ->
+            com.example.ui.components.SpaceWeatherGauge(spaceData = data)
+        }
+
+        // OpenCelliD RF Infrastructure & Cell Tower Radar Overlay
+        val rfSummary by viewModel.rfSummary.collectAsState()
+        rfSummary?.let { summary ->
+            com.example.ui.components.CellTowerRadarOverlay(rfSummary = summary)
+        }
+
         // Settings & Precision matrix
         val isNightMode by viewModel.isNightMode.collectAsState()
         Box(

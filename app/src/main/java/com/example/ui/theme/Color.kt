@@ -9,6 +9,7 @@ val SurfaceMedium = Color(0xFF121214)
 
 // Dynamic Glowing Signal Colors
 val GlowCyan = Color(0xFF00E5FF)       // Low, safe magnetic field level
+val GlowGreen = Color(0xFF10B981)      // Quiet/Normal space weather level
 val GlowAmber = Color(0xFFFFB300)      // Elevated/warning magnetic field level
 val GlowRed = Color(0xFFFF1744)        // Critical/wire detection level
 

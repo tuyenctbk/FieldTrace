@@ -92,4 +92,9 @@
     <string name="trace_grid">TRACE GRID</string>
     <string name="spatial_heatmap_tab">SPATIAL HEATMAP</string>
     <string name="cam_hud">CAM HUD</string>
+    <string name="app_tagline">EMF SCANNER • SPATIAL MAPPER • SPACE WEATHER</string>
+    <string name="space_weather_title">PLANETARY GEOMAGNETIC STORM ACTIVITY</string>
+    <string name="noaa_swpc_sub">NOAA SWPC Live Planetary Kp-Index Data</string>
+    <string name="rf_cell_towers_title">OPENCELLID NEARBY CELLULAR INFRASTRUCTURE</string>
+    <string name="opencellid_sub">RF Tower Correlation &amp; Signal Density Radar</string>
 </resources>

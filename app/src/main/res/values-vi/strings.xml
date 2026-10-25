@@ -92,4 +92,9 @@
     <string name="trace_grid">LƯỚI THEO DÕI</string>
     <string name="spatial_heatmap_tab">BẢN ĐỒ NHIỆT KHÔNG GIAN</string>
     <string name="cam_hud">CAMERA HUD</string>
+    <string name="app_tagline">MÁY QUÉT EMF • BẢN ĐỒ KHÔNG GIAN • THỜI TIẾT VŨ TRỤ</string>
+    <string name="space_weather_title">HOẠT ĐỘNG BÃO TỪ TRƯỜNG HÀNH TINH</string>
+    <string name="noaa_swpc_sub">Dữ liệu Chỉ số Kp Hành tinh Trực tiếp từ NOAA SWPC</string>
+    <string name="rf_cell_towers_title">HẠ TẦNG TRẠM PHÁT SÓNG OPENCELLID GẦN ĐÂY</string>
+    <string name="opencellid_sub">Radar Tương Quan Trạm Phát RF &amp; Mật Độ Tín Hiệu</string>
 </resources>

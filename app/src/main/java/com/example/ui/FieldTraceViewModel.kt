@@ -182,6 +182,16 @@ class FieldTraceViewModel(application: Application) : AndroidViewModel(applicati
     private var maxEmfDuringSession = 0f
     private var pointsCollectedInSession = 0
 
+    // NOAA Space Weather & OpenCelliD Infrastructure Repositories
+    private val spaceWeatherRepo = com.example.data.SpaceWeatherRepository()
+    private val cellTowerRepo = com.example.data.CellTowerRepository()
+
+    private val _spaceWeatherData = MutableStateFlow<com.example.data.SpaceWeatherData?>(null)
+    val spaceWeatherData: StateFlow<com.example.data.SpaceWeatherData?> = _spaceWeatherData.asStateFlow()
+
+    private val _rfSummary = MutableStateFlow<com.example.data.RfInfrastructureSummary?>(null)
+    val rfSummary: StateFlow<com.example.data.RfInfrastructureSummary?> = _rfSummary.asStateFlow()
+
     init {
         // Initialize Firebase services
         FirebaseManager.init(application)
@@ -193,6 +203,28 @@ class FieldTraceViewModel(application: Application) : AndroidViewModel(applicati
 
         // Check for app updates
         UpdateCheckerManager.checkForUpdates(application)
+
+        // Fetch NOAA Planetary Space Weather
+        viewModelScope.launch {
+            try {
+                _spaceWeatherData.value = spaceWeatherRepo.fetchLatestSpaceWeather()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        // Observe GPS Location for OpenCelliD / RF Infrastructure
+        viewModelScope.launch {
+            locationTracker.locationFlow.collect { loc ->
+                val lat = loc?.latitude ?: 37.421999
+                val lon = loc?.longitude ?: -122.084057
+                try {
+                    _rfSummary.value = cellTowerRepo.getNearbyRfInfrastructure(lat, lon)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     private fun startMagnetometer() {

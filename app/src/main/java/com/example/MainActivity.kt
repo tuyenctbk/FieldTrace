@@ -96,11 +96,16 @@ enum class FieldTraceTab {
 fun MainAppFlow() {
     val context = androidx.compose.ui.platform.LocalContext.current
     val prefs = remember { context.getSharedPreferences("fieldtrace_prefs", Context.MODE_PRIVATE) }
+    var showSplash by remember { mutableStateOf(true) }
     var isOnboardingCompleted by remember {
         mutableStateOf(prefs.getBoolean("onboarding_completed", false))
     }
 
-    if (!isOnboardingCompleted) {
+    if (showSplash) {
+        com.example.ui.screens.SplashScreen(
+            onSplashFinished = { showSplash = false }
+        )
+    } else if (!isOnboardingCompleted) {
         OnboardingScreen(
             onCompleteOnboarding = {
                 prefs.edit().putBoolean("onboarding_completed", true).apply()
